@@ -43,7 +43,7 @@ public class UserSearchController {
 
 			} else {
 				// save rule
-				Future<List<Track>> searchResult =  searchService.findTrackDetails("Tum Hi Ho Bandhu");
+				Future<List<Track>> searchResult =  searchService.findTrackDetails(search);
 				responseGenService.sendTrueResponse(deferedResult,  searchResult);
 			}
 		}

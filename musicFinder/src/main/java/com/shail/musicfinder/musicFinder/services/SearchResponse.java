@@ -10,6 +10,7 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.Future;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -19,13 +20,14 @@ import com.shail.musicfinder.musicFinder.objects.Track;
 
 
 @Service
+@CacheConfig(cacheNames={"usersearch"})
 public class SearchResponse {
 
 	private static final ExecutorService threadpool = Executors.newCachedThreadPool();
 	@Value("${lastfm.apikey}")
 	private String apiKey;
 	
-	@Cacheable("usersearch")
+	@Cacheable
 	public Future<List<Track>> findTrackDetails(String search) throws IOException
 	{
 		return threadpool.submit(new Callable<List<Track>>() {
