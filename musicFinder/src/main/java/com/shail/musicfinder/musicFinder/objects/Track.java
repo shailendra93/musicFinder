@@ -9,7 +9,6 @@ public class Track implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
-	private String id;
 	private String name;
 	private String artist;
 	private String url;
@@ -17,12 +16,7 @@ public class Track implements Serializable{
 	private String listeners;
 	private String mbid;
 	private List<Image> image;
-	public String getId() {
-		return id;
-	}
-	public void setId(String id) {
-		this.id = id;
-	}
+	
 	public String getName() {
 		return name;
 	}
@@ -67,7 +61,7 @@ public class Track implements Serializable{
 	}
 	@Override
 	public String toString() {
-		return "Track [id=" + id + ", name=" + name + ", artist=" + artist + ", url=" + url + ", streamable="
+		return "Track [ name=" + name + ", artist=" + artist + ", url=" + url + ", streamable="
 				+ streamable + ", listeners=" + listeners + ", mbid=" + mbid + ", image=" + image + "]";
 	}
 	

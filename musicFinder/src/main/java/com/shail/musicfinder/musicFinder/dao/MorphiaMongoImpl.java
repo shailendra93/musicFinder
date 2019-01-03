@@ -38,10 +38,11 @@ public class MorphiaMongoImpl implements IDatabase {
 		try {
 			ServerAddress address = new ServerAddress("127.0.0.1",27017);
 			
+			@SuppressWarnings("deprecation")
 			MongoClient client = new MongoClient(address,
 					Arrays.asList(
-							MongoCredential.createCredential("shail","person","12345678".toCharArray())));
-			datastore = morphia.createDatastore(client, "person");
+							MongoCredential.createCredential("shail","musicFinder","12345678".toCharArray())));
+			datastore = morphia.createDatastore(client, "musicFinder");
 			datastore.ensureIndexes();
 
 		} catch (Exception e) {
@@ -62,7 +63,7 @@ public class MorphiaMongoImpl implements IDatabase {
 		System.out.println("field in db:"+fieldName);
 		System.out.println("value in db:"+fieldValue);
 		QueryResults query = (QueryResults) datastore.createQuery(classname).field(fieldName).equal(fieldValue);
-        System.out.println("result:"+query.get());
+       // System.out.println("result:"+query.get());
 		return query.get();
 
 	}

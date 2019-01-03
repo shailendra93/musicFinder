@@ -27,10 +27,7 @@ public class UserController {
 	private ResponseGenerationService responseGenService;
 	@Autowired
 	private UserResponse userService;
-	
-	//adding new device
-	
-	//@Loggable(tag = "DeviceEngine - Add Device(/device/api/devices)")
+		
 	@RequestMapping(value = "/users", method = RequestMethod.POST)
 	public DeferredResult<ResponseEntity<?>> addUser(@RequestBody User user) {
 		System.out.println("adding User");
