@@ -7,6 +7,7 @@ import java.util.concurrent.Future;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,9 +29,9 @@ public class UserSearchController {
 	@Autowired
 	private SearchResponse searchService;
 	
-	@RequestMapping(value = "/search", method = RequestMethod.GET)
-	public DeferredResult<ResponseEntity<?>> addUser(@RequestBody String search) throws IOException {
-		System.out.println("searching  music");
+	@RequestMapping(value = "/search/{userId}/", method = RequestMethod.GET)
+	public DeferredResult<ResponseEntity<?>> addUser(@PathVariable("userId") String userId,  @RequestBody String search) throws IOException {
+		System.out.println("searching  music:"+ userId+" "+search);
 		DeferredResult<ResponseEntity<?>> deferedResult = responseGenService.generateDefferedResponse();
 
 		if (search == null) {
@@ -43,7 +44,7 @@ public class UserSearchController {
 
 			} else {
 				// save rule
-				Future<List<Track>> searchResult =  searchService.findTrackDetails(search);
+				Future<List<Track>> searchResult =  searchService.findTrackDetails(userId,search);
 				responseGenService.sendTrueResponse(deferedResult,  searchResult);
 			}
 		}

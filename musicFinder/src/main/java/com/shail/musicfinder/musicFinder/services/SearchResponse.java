@@ -3,6 +3,7 @@ package com.shail.musicfinder.musicFinder.services;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutorService;
@@ -16,7 +17,9 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.shail.musicfinder.musicFinder.dao.DBManager;
 import com.shail.musicfinder.musicFinder.objects.Track;
+import com.shail.musicfinder.musicFinder.objects.UserSearch;
 
 
 @Service
@@ -28,13 +31,17 @@ public class SearchResponse {
 	private String apiKey;
 	
 	@Cacheable
-	public Future<List<Track>> findTrackDetails(String search) throws IOException
+	public Future<List<Track>> findTrackDetails(String userId,String search) throws IOException
 	{
 		return threadpool.submit(new Callable<List<Track>>() {
 		
 			@Override
 			public List<Track> call() throws Exception {
+				
+				List<Track> tracks;
 				System.out.println("inside track " +apiKey +" "+search);
+				UserSearch usersearch = (UserSearch) DBManager.getInstance().getByField("userId",userId,UserSearch.class);
+				if(usersearch==null || !usersearch.getSearchCache().containsKey(search)) {
 				RestTemplate restTemplate  = new RestTemplate();
 				
 				String lastfmTrack = "http://ws.audioscrobbler.com/2.0/?method=track.search&track="+search+"&api_key="+apiKey+"&format=json";
@@ -45,7 +52,7 @@ public class SearchResponse {
 				com.fasterxml.jackson.databind.JsonNode name = root.get("results").get("trackmatches").get("track");
 				
 				System.out.println(name);
-				List<Track> tracks = new ArrayList<>();
+				tracks = new ArrayList<>();
 			
 				Iterator<com.fasterxml.jackson.databind.JsonNode> namenode = name.elements();
 				while(namenode.hasNext())
@@ -61,10 +68,21 @@ public class SearchResponse {
 					tracks.add(trak);
 					
 				}
+					
+				usersearch = new UserSearch();
+				LinkedHashMap< String, List<Track>> cache = new LinkedHashMap<>();
+				cache.put(search, tracks);
+				usersearch.setUserId(userId);
+				usersearch.setSearchCache(cache);
+				//update cache
+				DBManager.getInstance().save(usersearch);
 				
-				
-			     
-				 return tracks;
+				}
+				else
+				{
+					tracks = usersearch.getSearchCache().get(search);
+				}
+				return tracks;
 			}
 		
 		

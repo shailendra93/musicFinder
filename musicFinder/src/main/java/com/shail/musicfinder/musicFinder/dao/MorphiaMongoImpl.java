@@ -18,11 +18,6 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoCredential;
 import com.mongodb.ServerAddress;
 
-
-/**
- * @author bhaswanthg
- *
- */
 @SuppressWarnings({ "rawtypes", "unchecked" })
 public class MorphiaMongoImpl implements IDatabase {
 	/**
