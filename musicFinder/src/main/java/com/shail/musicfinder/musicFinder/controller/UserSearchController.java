@@ -43,7 +43,7 @@ public class UserSearchController {
 						new InvalidInputException("search string  is Null"));
 
 			} else {
-				// save rule
+				
 				Future<List<Track>> searchResult =  searchService.findTrackDetails(userId,search);
 				responseGenService.sendTrueResponse(deferedResult,  searchResult);
 			}

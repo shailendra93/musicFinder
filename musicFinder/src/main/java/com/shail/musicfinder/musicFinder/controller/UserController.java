@@ -42,7 +42,7 @@ public class UserController {
 						new InvalidInputException("Name for  User is Null"));
 
 			} else {
-				// save rule
+				
 				Future<String> addUserFuture =  userService.addUser(user);
 				responseGenService.sendTrueResponse(deferedResult,  addUserFuture);
 			}
@@ -68,7 +68,7 @@ public class UserController {
 		return deferedResult;
 	}
 	
-	//@RequestMapping(value = "/devices/{deviceid}", method = RequestMethod.DELETE)
+	//@RequestMapping(value = "/user/{userid}", method = RequestMethod.DELETE)
 	@DeleteMapping("/user/{userid}")
 	public DeferredResult<ResponseEntity<?>> deleteUser(@PathVariable("userid") String userId) {
 
@@ -84,8 +84,7 @@ public class UserController {
 		return deferedResult;
 	}
 	
-	
-//	@Loggable(tag = "RuleEngine - Update Rule(/pe/api/rules)")
+
 	@RequestMapping(value = "/user/{userid}", method = RequestMethod.PUT)
 	public DeferredResult<ResponseEntity<?>> updateUser(@PathVariable("userid") String userId, @RequestBody User user) {
 		
