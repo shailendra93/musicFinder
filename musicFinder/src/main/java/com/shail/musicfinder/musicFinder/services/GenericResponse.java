@@ -5,10 +5,7 @@ package com.shail.musicfinder.musicFinder.services;
 
 import java.io.Serializable;
 
-/**
- * @author bhaswanthg
- *
- */
+
 public class GenericResponse implements java.io.Serializable {
 
 	private boolean success;
