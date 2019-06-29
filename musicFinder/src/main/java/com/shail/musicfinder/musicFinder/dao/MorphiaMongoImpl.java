@@ -74,13 +74,7 @@ public class MorphiaMongoImpl implements IDatabase {
 		datastore.delete(obj);
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.topeng.tsg.dswc.database.coreimpl.IDatabase#update()
-	 * 
-	 * Issues- All fields should be public- need to fix that.
-	 */
+	
 	@Override
 	public Boolean update(Object entity, Class classname) {
 		UpdateOperations ops = datastore.createUpdateOperations(classname);
@@ -104,30 +98,14 @@ public class MorphiaMongoImpl implements IDatabase {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.topeng.tsg.dswc.database.coreimpl.IDatabase#getAll(java.lang.Class)
-	 */
+	
 	@Override
 	public List getAll(Class class1) {
 		final Query query = datastore.createQuery(class1);
 		return query.asList();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.topeng.tsg.dswc.database.coreimpl.IDatabase#getById(java.lang.String
-	 * , java.lang.Class)
-	 */
-//	@Override
-//	public Object getById(String id, Class classname) {
-//		return datastore.get(classname, new ObjectId(id));
-//	}
-
+	
 	@Override
 	public List getByMultipleFields(Class classname, HashMap<String, Object> values) {
 
@@ -153,35 +131,20 @@ public class MorphiaMongoImpl implements IDatabase {
 		return q.asList();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.topeng.tsg.dswc.database.coreimpl.IDatabase#countAll(java.lang.
-	 * Class)
-	 */
+	
 	@Override
 	public long countAll(Class class1) {
 		Query q = datastore.createQuery(class1);
 		return q.countAll();
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see com.topeng.tsg.dswc.database.coreimpl.IDatabase#deleteAll(java.lang
-	 * .Class)
-	 */
+	
 	@Override
 	public void deleteAll(Class class1) {
 		datastore.delete(datastore.createQuery(class1));
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.topeng.tsg.dswc.database.coreimpl.IDatabase#saveAll(java.util.List)
-	 */
+	
 	@Override
 	public void saveAll(List list) {
 		datastore.save(list);
@@ -212,13 +175,7 @@ public class MorphiaMongoImpl implements IDatabase {
 
 	}
 
-	/*
-	 * (non-Javadoc)
-	 * 
-	 * @see
-	 * com.topeng.tsg.dswc.database.coreimpl.IDatabase#getAll(java.lang.Class,
-	 * int, int)
-	 */
+	
 	@Override
 	public List getAll(Class class1, int limit, int offset) {
 		Query q = datastore.createQuery(class1);
